@@ -11,9 +11,68 @@ License: GPLv2
 
 */
 
-/********************
-* NOFOLLOW SHORTCODES *
-********************/
+/***********************
+* OPTIONS PAGE SECTION *
+************************/
+
+/* // insert default values for first initialization 
+(99% of users won't need to change this) */
+function set_defaults( $option_array_name = 'ultnofo_item' ) { 
+	if( !get_option( $option_array_name ) ) { // if option doesn't exist yet:
+		$defaultvars = array( // set defaults in array
+			'nofollow_comments' => 1, // first part of tracking code
+		);
+		return add_option( $option_array_name, $defaultvars, '', 'no'); // then make it with default values
+	}
+}
+
+/* add plugin's options to white list */
+function ultnofo_options_init() { 
+	register_setting( 'ultnofo_options_options', 'ultnofo_item', 'ultnofo_options_validate' );
+}
+
+/* add link to plugin's settings page under 'settings' on the admin menu */
+function ultnofo_options_add_page() { 
+	add_options_page( 'Ultimate Nofollow Settings', 'Nofollow', 'manage_options', 'ultimate-nofollow', 'ultnofo_options_do_page' );
+}
+
+/* sanitize and validate input. 
+accepts an array, returns a sanitized array. */
+function ultnofo_options_validate($input) { 
+	$input[ 'nofollow_comments' ] = ( $input[ 'nofollow_comments' ] == 1 ? 1 : 0 ); // (checkbox) if 1 then 1, else 0
+	//	$input[ 'test_text_1' ] =  wp_filter_nohtml_kses( $input[ 'test_text_1' ] ); // (textbox) safe text, no html
+	return $input;
+}
+
+function ultnofo_options_do_page() { // draw the settings page itself
+	?>
+	<div class="wrap">
+    <div class="icon32" id="icon-options-general"><br /></div>
+		<h2>Ultimate Nofollow Settings</h2>
+		<form method="post" action="options.php">
+			<?php settings_fields( 'ultnofo_options_options' ); // nonce settings page ?>
+			<?php $options = get_option( 'ultnofo_item' ); // populate $options array from database ?>
+			<table class="form-table">
+				<tr valign="top"><th scope="row">Add Nofollow to links in comments?</th>
+					<td><input name="ultnofo_item[insertcode]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_comments' ] ); ?> /></td>
+                </tr>
+				<!-- <tr valign="top"><th scope="row">Text:</th>
+					<td>
+                    	UA-<input type="text" name="ssga_item[sometext1]" value="<?php // echo $options[ 'test_text_1']; ?>" style="width:90px;" maxlength="8" />
+					</td>
+				</tr> -->
+			</table>
+			<p class="submit">
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			</p>
+		</form>
+	</div>
+	<?php	
+}
+
+/******************************
+* NOFOLLOW SHORTCODES SECTION *
+*******************************/
 
 /* define additional plugin meta links */
 function set_plugin_meta_ultnofo( $links, $file ) { 
@@ -86,20 +145,6 @@ function ultnofo_nofollow_link( $atts, $content = NULL ) {
 	return '<a' . $href_chunk . $target_chunk . $title_chunk . '" rel="nofollow">' . $content_chunk . '</a>';
 }
 
-/* add hooks */
-// add meta links to plugin's section on 'plugins' page (10=priority, 2=num of args)
-add_filter( 'plugin_row_meta', 'set_plugin_meta_ultnofo', 10, 2 ); 
-
-// add shortcodes
-$shortcodes = array(
-	'relnofollow',
-	'nofollow',
-	'nofol',
-	'nofo',
-	'nf'
-);
-foreach( $shortcodes as $shortcode ) add_shortcode( $shortcode, 'ultnofo_nofollow_link' );
-
 /****************************
 * BLOGROLL NOFOLLOW SECTION *
 *****************************/
@@ -112,4 +157,23 @@ foreach( $shortcodes as $shortcode ) add_shortcode( $shortcode, 'ultnofo_nofollo
 * NOFOLLOW ON COMMENTS SECTION *
 ********************************/
 
+/************
+* ADD HOOKS *
+*************/
+
+// add meta links to plugin's section on 'plugins' page (10=priority, 2=num of args)
+add_filter( 'plugin_row_meta', 'set_plugin_meta_ultnofo', 10, 2 ); 
+
+// add plugin's options to white list on admin initialization
+add_action('admin_init', 'set_defaults' ); 
+
+// add shortcodes
+$shortcodes = array(
+	'relnofollow',
+	'nofollow',
+	'nofol',
+	'nofo',
+	'nf'
+);
+foreach( $shortcodes as $shortcode ) add_shortcode( $shortcode, 'ultnofo_nofollow_link' );
 ?>
