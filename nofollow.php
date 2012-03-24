@@ -17,7 +17,7 @@ License: GPLv2
 
 /* // insert default values for first initialization 
 (99% of users won't need to change this) */
-function set_defaults( $option_array_name = 'ultnofo_item' ) { 
+function ultnofo_set_defaults( $option_array_name = 'ultnofo_item' ) { 
 	if( !get_option( $option_array_name ) ) { // if option doesn't exist yet:
 		$defaultvars = array( // set defaults in array
 			'nofollow_comments' => 1, // first part of tracking code
@@ -44,7 +44,8 @@ function ultnofo_options_validate($input) {
 	return $input;
 }
 
-function ultnofo_options_do_page() { // draw the settings page itself
+/* draw the settings page itself */
+function ultnofo_options_do_page() { 
 	?>
 	<div class="wrap">
     <div class="icon32" id="icon-options-general"><br /></div>
@@ -54,7 +55,7 @@ function ultnofo_options_do_page() { // draw the settings page itself
 			<?php $options = get_option( 'ultnofo_item' ); // populate $options array from database ?>
 			<table class="form-table">
 				<tr valign="top"><th scope="row">Add Nofollow to links in comments?</th>
-					<td><input name="ultnofo_item[insertcode]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_comments' ] ); ?> /></td>
+					<td><input name="ultnofo_item[nofollow_comments]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_comments' ] ); ?> /></td>
                 </tr>
 				<!-- <tr valign="top"><th scope="row">Text:</th>
 					<td>
@@ -165,7 +166,7 @@ function ultnofo_nofollow_link( $atts, $content = NULL ) {
 add_filter( 'plugin_row_meta', 'set_plugin_meta_ultnofo', 10, 2 ); 
 
 // add plugin's options to white list on admin initialization
-add_action('admin_init', 'set_defaults' ); 
+add_action('admin_init', 'ultnofo_set_defaults' ); 
 
 // add shortcodes
 $shortcodes = array(
