@@ -15,20 +15,12 @@ License: GPLv2
 * OPTIONS PAGE SECTION *
 ************************/
 
-/* // insert default values for first initialization 
-(99% of users won't need to change this) */
-function ultnofo_set_defaults( $option_array_name = 'ultnofo_item' ) { 
-	if( !get_option( $option_array_name ) ) { // if option doesn't exist yet:
-		$defaultvars = array( // set defaults in array
-			'nofollow_comments' => 1, // first part of tracking code
-		);
-		return add_option( $option_array_name, $defaultvars, '', 'no'); // then make it with default values
-	}
-}
-
-/* add plugin's options to white list */
+/* add plugin's options to white list / defaults */
 function ultnofo_options_init() { 
 	register_setting( 'ultnofo_options_options', 'ultnofo_item', 'ultnofo_options_validate' );
+
+	// if option doesn't exist, set defaults
+	if( !get_option( 'ultnofo_item' ) ) add_option( 'ultnofo_item', array( 'nofollow_comments' => 1 ), '', 'no' ); 
 }
 
 /* add link to plugin's settings page under 'settings' on the admin menu */
@@ -38,7 +30,7 @@ function ultnofo_options_add_page() {
 
 /* sanitize and validate input. 
 accepts an array, returns a sanitized array. */
-function ultnofo_options_validate($input) { 
+function ultnofo_options_validate( $input ) { 
 	$input[ 'nofollow_comments' ] = ( $input[ 'nofollow_comments' ] == 1 ? 1 : 0 ); // (checkbox) if 1 then 1, else 0
 	//	$input[ 'test_text_1' ] =  wp_filter_nohtml_kses( $input[ 'test_text_1' ] ); // (textbox) safe text, no html
 	return $input;
@@ -143,7 +135,7 @@ function ultnofo_nofollow_link( $atts, $content = NULL ) {
 	if( empty( $content ) ) return '<!-- Ultimate Nofollow Plugin | shortcode insertion failed | no link text given -->'; // if url doesn't starts with valid string
 	else $content_chunk = trim( htmlentities( strip_tags( $content ), ENT_QUOTES ) ); // else add $content
 	
-	return '<a' . $href_chunk . $target_chunk . $title_chunk . '" rel="nofollow">' . $content_chunk . '</a>';
+	return '<a' . $href_chunk . $target_chunk . $title_chunk . ' rel="nofollow">' . $content_chunk . '</a>';
 }
 
 /****************************
@@ -166,7 +158,10 @@ function ultnofo_nofollow_link( $atts, $content = NULL ) {
 add_filter( 'plugin_row_meta', 'set_plugin_meta_ultnofo', 10, 2 ); 
 
 // add plugin's options to white list on admin initialization
-add_action('admin_init', 'ultnofo_set_defaults' ); 
+add_action('admin_init', 'ultnofo_options_init' ); 
+
+// add link to plugin's settings page in 'settings' menu on admin menu initilization
+add_action('admin_menu', 'ultnofo_options_add_page'); 
 
 // add shortcodes
 $shortcodes = array(

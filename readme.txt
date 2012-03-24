@@ -5,7 +5,7 @@ Donate link: http://wikiduh.com/donate
 Tags: nofollow,link,meta,rel,rel nofollow,seo,link meta,nofollow links,shortcode
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 
 A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
 
@@ -36,6 +36,11 @@ See the manpages.
 1. Source code of a link inserted with the [nofollow] shortcode.
 
 == Changelog ==
+
+= 0.1.1 =
+* Stable beta version.
+* Adds nofollow shortcodes.
+* Adds options page.
 
 = 0.1.0 =
 * First released beta version.
