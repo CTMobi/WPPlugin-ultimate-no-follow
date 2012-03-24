@@ -3,7 +3,7 @@
 Plugin Name: Ultimate Nofollow
 Plugin URI: http://wikiduh.com/plugins/nofollow
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
-Version: 0.1.0
+Version: 0.1.2
 Author: bitacre
 Author URI: http://wikiduh.com
 License: GPLv2 
@@ -62,6 +62,16 @@ function ultnofo_options_do_page() {
 	</div>
 	<?php	
 }
+
+/* add hooks/filters */
+// add meta links to plugin's section on 'plugins' page (10=priority, 2=num of args)
+add_filter( 'plugin_row_meta', 'set_plugin_meta_ultnofo', 10, 2 ); 
+
+// add plugin's options to white list on admin initialization
+add_action('admin_init', 'ultnofo_options_init' ); 
+
+// add link to plugin's settings page in 'settings' menu on admin menu initilization
+add_action('admin_menu', 'ultnofo_options_add_page'); 
 
 /******************************
 * NOFOLLOW SHORTCODES SECTION *
@@ -138,31 +148,7 @@ function ultnofo_nofollow_link( $atts, $content = NULL ) {
 	return '<a' . $href_chunk . $target_chunk . $title_chunk . ' rel="nofollow">' . $content_chunk . '</a>';
 }
 
-/****************************
-* BLOGROLL NOFOLLOW SECTION *
-*****************************/
-
-/**********************************************
-* ADD LINK DIALOGUE NOFOLLOW CHECKBOX SECTION *
-***********************************************/
-
-/*******************************
-* NOFOLLOW ON COMMENTS SECTION *
-********************************/
-
-/************
-* ADD HOOKS *
-*************/
-
-// add meta links to plugin's section on 'plugins' page (10=priority, 2=num of args)
-add_filter( 'plugin_row_meta', 'set_plugin_meta_ultnofo', 10, 2 ); 
-
-// add plugin's options to white list on admin initialization
-add_action('admin_init', 'ultnofo_options_init' ); 
-
-// add link to plugin's settings page in 'settings' menu on admin menu initilization
-add_action('admin_menu', 'ultnofo_options_add_page'); 
-
+/* add hooks/filters */
 // add shortcodes
 $shortcodes = array(
 	'relnofollow',
@@ -172,4 +158,26 @@ $shortcodes = array(
 	'nf'
 );
 foreach( $shortcodes as $shortcode ) add_shortcode( $shortcode, 'ultnofo_nofollow_link' );
+
+/****************************
+* BLOGROLL NOFOLLOW SECTION *
+*****************************/
+
+/**********************************************
+* ADD LINK DIALOGUE NOFOLLOW CHECKBOX SECTION *
+***********************************************/
+
+/************************************
+* NOFOLLOW ON COMMENT LINKS SECTION *
+*************************************/
+
+function ultnofo_follow_comments( $comment ) {
+$comment = str_replace( $comment, '', 'rel="nofollow"' );
+return $comment;
+}
+
+/* add hooks/filters */
+// add/remove nofollow from comment links
+add_filter('comment_text', 'ultnofo_follow_comments', 10);
+
 ?>
