@@ -10,14 +10,16 @@ Stable tag: 0.1.1
 A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
 
 == Description ==
-
 This plugin contains several tools in one to significantly increase your control of the nofollow rel tag on every link on your blog, on both an individual and type basis. It is designed to give you fine-grained control of linking for SEO purposes.
 
-The plugin's four main additions are: 
-* a nofollow checkbox to the `insert link` dialogue box, 
-* several nofollow `shortcodes`, 
-* a nofollow option for individual (or all) `blogroll links`, 
-* plus the ability to globally add or remove the nofollow tag in `comments`.
+Notice: This plugin is still in beta. While it is stable, not all functions listed are included yet.
+
+The plugin's main features are: 
+*   a nofollow checkbox to the `insert link` dialogue box, 
+*   several nofollow `shortcodes` (added in v0.1.0), 
+*   a nofollow option for individual `blogroll links`, 
+*   plus the ability to globally add or remove the nofollow tag in `comments`,
+*   plugin settings page (added in v0.1.1).
 
 == Installation ==
 
@@ -39,7 +41,7 @@ See the manpages.
 
 = 0.1.1 =
 * Stable beta version.
-* Adds nofollow shortcodes.
+* Adds full nofollow shortcodes.
 * Adds options page.
 
 = 0.1.0 =
