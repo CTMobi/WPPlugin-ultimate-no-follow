@@ -46,7 +46,7 @@ function ultnofo_options_do_page() {
 			<?php settings_fields( 'ultnofo_options_options' ); // nonce settings page ?>
 			<?php $options = get_option( 'ultnofo_item' ); // populate $options array from database ?>
 			<table class="form-table">
-				<tr valign="top"><th scope="row">Add Nofollow to links in comments?</th>
+				<tr valign="top"><th scope="row">Add Nofollow to ALL links in comments?</th>
 					<td><input name="ultnofo_item[nofollow_comments]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_comments' ] ); ?> /></td>
                 </tr>
 				<!-- <tr valign="top"><th scope="row">Text:</th>
