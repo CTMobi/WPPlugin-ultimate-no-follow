@@ -55,10 +55,7 @@ function ultnofo_options_do_page() {
 					<td><input name="ultnofo_item[nofollow_comments]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_comments' ] ); ?> /></td>
                 </tr>
                 
-                <tr valign="top"><th scope="row">Add Nofollow to ALL blogroll links?</th>
-					<td><input name="ultnofo_item[nofollow_blogroll]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_blogroll' ] ); ?> /></td>
-                </tr>
-                
+           
 				<!-- <tr valign="top"><th scope="row">Text:</th>
 					<td>
                     	UA-<input type="text" name="ssga_item[sometext1]" value="<?php // echo $options[ 'test_text_1']; ?>" style="width:90px;" maxlength="8" />
