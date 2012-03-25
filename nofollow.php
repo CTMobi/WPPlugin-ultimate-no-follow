@@ -171,13 +171,17 @@ foreach( $shortcodes as $shortcode ) add_shortcode( $shortcode, 'ultnofo_nofollo
 * NOFOLLOW ON COMMENT LINKS SECTION *
 *************************************/
 
-function ultnofo_follow_comments( $comment ) {
-$comment = str_replace( $comment, '', 'rel="nofollow"' );
-return $comment;
+// add/remove nofollow from all comment links
+function ultnofo_comment_links( $comment ) {
+	$options = get_option( 'ultnofo_item' );
+	if( !$options[ 'nofollow_comments' ] )
+		$comment = str_replace( 'rel="nofollow"', '', $comment );
+	elseif( !strpos( $comment, 'rel="nofollow"' ) )
+		$output = str_replace( '<a ', '<a rel="nofollow"', $comment ); 
+	return $comment;	
 }
 
 /* add hooks/filters */
 // add/remove nofollow from comment links
-add_filter('comment_text', 'ultnofo_follow_comments', 10);
-
+add_filter('comment_text', 'ultnofo_comment_links', 10);
 ?>
