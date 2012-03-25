@@ -9,6 +9,10 @@ Author URI: http://wikiduh.com
 License: GPLv2 
 	Copyright 2012 bitacre (plugins@wikiduh.com)
 
+This plugin contains several tools in one to significantly increase your control of the nofollow rel tag on every link on your blog, on both an individual and type basis. It is designed to give you fine-grained control of linking for SEO purposes.
+
+Notice: This plugin is still in beta. While it is stable, not all functions listed are included yet
+
 */
 
 /***********************
@@ -20,7 +24,7 @@ function ultnofo_options_init() {
 	register_setting( 'ultnofo_options_options', 'ultnofo_item', 'ultnofo_options_validate' );
 
 	// if option doesn't exist, set defaults
-	if( !get_option( 'ultnofo_item' ) ) add_option( 'ultnofo_item', array( 'nofollow_comments' => 1 ), '', 'no' ); 
+	if( !get_option( 'ultnofo_item' ) ) add_option( 'ultnofo_item', array( 'nofollow_comments' => 1, 'nofollow_blogroll' => 0 ), '', 'no' ); 
 }
 
 /* add link to plugin's settings page under 'settings' on the admin menu */
@@ -46,9 +50,15 @@ function ultnofo_options_do_page() {
 			<?php settings_fields( 'ultnofo_options_options' ); // nonce settings page ?>
 			<?php $options = get_option( 'ultnofo_item' ); // populate $options array from database ?>
 			<table class="form-table">
-				<tr valign="top"><th scope="row">Add Nofollow to ALL links in comments?</th>
+				
+                <tr valign="top"><th scope="row">Add Nofollow to ALL links in comments?</th>
 					<td><input name="ultnofo_item[nofollow_comments]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_comments' ] ); ?> /></td>
                 </tr>
+                
+                <tr valign="top"><th scope="row">Add Nofollow to ALL blogroll links?</th>
+					<td><input name="ultnofo_item[nofollow_blogroll]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_blogroll' ] ); ?> /></td>
+                </tr>
+                
 				<!-- <tr valign="top"><th scope="row">Text:</th>
 					<td>
                     	UA-<input type="text" name="ssga_item[sometext1]" value="<?php // echo $options[ 'test_text_1']; ?>" style="width:90px;" maxlength="8" />
@@ -177,7 +187,7 @@ function ultnofo_comment_links( $comment ) {
 	if( !$options[ 'nofollow_comments' ] )
 		$comment = str_replace( 'rel="nofollow"', '', $comment );
 	elseif( !strpos( $comment, 'rel="nofollow"' ) )
-		$output = str_replace( '<a ', '<a rel="nofollow"', $comment ); 
+		$comment = str_replace( '<a ', '<a rel="nofollow"', $comment ); 
 	return $comment;	
 }
 
