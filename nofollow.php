@@ -184,7 +184,7 @@ foreach( $shortcodes as $shortcode ) add_shortcode( $shortcode, 'ultnofo_nofollo
 *****************************/
 
 function ultnofo_blogroll_add_meta_box() {
-	add_meta_box( 'ultnofo_blogroll_nofollow_div', 'Ultimate Nofollow', 'ultnofo_blogroll_inner_meta_box', '', 'side','high' );	
+	add_meta_box( 'ultnofo_blogroll_nofollow_div', 'Ultimate Nofollow', 'ultnofo_blogroll_inner_meta_box', 'link', 'side','high' );	
 }
 
 function ultnofo_blogroll_inner_meta_box ( $post ) {
