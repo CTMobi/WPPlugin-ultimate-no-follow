@@ -39,6 +39,8 @@ See the manpages.
 
 1. Settings page on the Dashboard.
 
+2. Nofollow checkbox on the add/edit blogroll link page.
+
 == Changelog ==
 
 = 0.1.3 =
