@@ -3,7 +3,7 @@
 Plugin Name: Ultimate Nofollow
 Plugin URI: http://wikiduh.com/plugins/nofollow
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
-Version: 0.3
+Version: 0.1.3
 Author: bitacre
 Author URI: http://wikiduh.com
 License: GPLv2 
