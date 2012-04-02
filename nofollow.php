@@ -3,7 +3,7 @@
 Plugin Name: Ultimate Nofollow
 Plugin URI: http://wikiduh.com/plugins/nofollow
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
-Version: 0.1.2
+Version: 0.3
 Author: bitacre
 Author URI: http://wikiduh.com
 License: GPLv2 
@@ -11,7 +11,7 @@ License: GPLv2
 
 This plugin contains several tools in one to significantly increase your control of the nofollow rel tag on every link on your blog, on both an individual and type basis. It is designed to give you fine-grained control of linking for SEO purposes.
 
-Notice: This plugin is still in beta. While it is stable, not all functions listed are included yet
+Notice: This plugin is still in beta. While it is stable, not all functions listed are included yet.
 
 */
 
@@ -51,10 +51,23 @@ function ultnofo_options_do_page() {
 			<?php $options = get_option( 'ultnofo_item' ); // populate $options array from database ?>
 			<table class="form-table">
 				
-                <tr valign="top"><th scope="row">Add nofollow to links in comments?</th>
-					<td><input name="ultnofo_item[nofollow_comments]" type="checkbox" value="1" <?php checked( '1', $options[ 'nofollow_comments' ] ); ?> /></td>
+                
+<!-- all comment links -->
+                <tr valign="top">
+					<th scope="row">Nofollow all links in comments?</th>
+					<td><input name="ultnofo_item[nofollow_comments]" type="checkbox" value="1" <?php checked( $options[ 'nofollow_comments' ] ); ?> />
+					</td>
                 </tr>
                 
+                
+<!-- all blogroll links -->
+                <tr valign="top">
+					<th scope="row">Nofollow all blogroll links?</th>
+					<td><input name="ultnofo_item[nofollow_blogroll]" type="checkbox" value="1" <?php checked( $options[ 'nofollow_blogroll' ] ); ?> />
+					<span style="color:red; font-size:smaller">(warning: will override individual selections!)</span></td>
+                </tr>
+                
+           		
            
 				<!-- <tr valign="top"><th scope="row">Text:</th>
 					<td>
@@ -67,7 +80,20 @@ function ultnofo_options_do_page() {
 			</p>
 		</form>
 	</div>
-	<?php	
+	<?php
+}
+
+/* define additional plugin meta links */
+function set_plugin_meta_ultnofo( $links, $file ) { 
+	$plugin = plugin_basename( __FILE__ ); // '/nofollow/nofollow.php' by default
+    if ( $file == $plugin ) { // if called for THIS plugin then:
+		$newlinks = array( 
+			'<a href="options-general.php?page=ultimate-nofollow">Settings</a>',
+			'<a href="http://wikiduh.com/plugins/nofollow/help">Help Page</a>' 
+		); // array of links to add
+		return array_merge( $links, $newlinks ); // merge new links into existing $links
+	}
+return $links; // return the $links (merged or otherwise)
 }
 
 /* add hooks/filters */
@@ -83,19 +109,6 @@ add_action('admin_menu', 'ultnofo_options_add_page');
 /******************************
 * NOFOLLOW SHORTCODES SECTION *
 *******************************/
-
-/* define additional plugin meta links */
-function set_plugin_meta_ultnofo( $links, $file ) { 
-	$plugin = plugin_basename( __FILE__ ); // '/nofollow/nofollow.php' by default
-    if ( $file == $plugin ) { // if called for THIS plugin then:
-		$newlinks = array( 
-			'<a href="options-general.php?page=ultimate-nofollow">Settings</a>',
-			'<a href="http://wikiduh.com/plugins/nofollow/help">Help Page</a>' 
-		); // array of links to add
-		return array_merge( $links, $newlinks ); // merge new links into existing $links
-	}
-return $links; // return the $links (merged or otherwise)
-}
 
 /* valid href starting substring? */
 function ultnofo_valid_url( $href ) {
@@ -169,6 +182,55 @@ foreach( $shortcodes as $shortcode ) add_shortcode( $shortcode, 'ultnofo_nofollo
 /****************************
 * BLOGROLL NOFOLLOW SECTION *
 *****************************/
+
+function ultnofo_blogroll_add_meta_box() {
+	add_meta_box( 'ultnofo_blogroll_nofollow_div', 'Ultimate Nofollow', 'ultnofo_blogroll_inner_meta_box', '', 'side','high' );	
+}
+
+function ultnofo_blogroll_inner_meta_box ( $post ) {
+	$bookmark = get_bookmark( $post->ID, 'ARRAY_A' );
+	if( strpos( $bookmark['link_rel'], 'nofollow' ) !== FALSE ) $checked = ' checked="checked"';
+	else $checked = '';
+
+	$options = get_option( 'ultnofo_item' );
+	if( $options['nofollow_blogroll'] ) { 
+		$disabled=' disabled="disabled"';
+		$message='<br /><span style="color:red; font-size:smaller;">ALL blogroll links nofollowed on the <a href="options-general.php?page=ultimate-nofollow" target="_blank">options</a> page.</span>';
+	}
+	else { 
+		$disabled = '';	
+		$message = '';
+	}
+
+	?>
+<label for="ultnofo_blogroll_nofollow_checkbox">Nofollow this link?</label>
+<input value="1" id="ultnofo_blogroll_nofollow_checkbox" name="ultnofo_blogroll_nofollow_checkbox"<?php echo $disabled; ?> type="checkbox"<?php echo $checked; ?> /> <?php echo $message; ?>
+<?php
+}
+
+function ultnofo_blogroll_save_meta_box( $link_rel ) {
+	$rel = trim( str_replace( 'nofollow', '', $link_rel ) );
+	if( $_POST['ultnofo_blogroll_nofollow_checkbox'] ) $rel .= ' nofollow';
+	return trim( $rel );
+}
+
+function ultnofo_blogroll_nofollow_all( $links ) {
+	foreach( $links as $link ) {
+		$rel = trim( str_replace('nofollow', '', $link->link_rel ) );
+		$link->link_rel = trim( $rel . ' nofollow' );
+	}
+	return $links;
+}
+
+/* add hooks/filters */
+add_action( 'add_meta_boxes', 'ultnofo_blogroll_add_meta_box', 1 );
+add_filter( 'pre_link_rel', 'ultnofo_blogroll_save_meta_box', 99998, 1);
+
+$ultnofo_options = get_option( 'ultnofo_item' ); // NOT IN FUNCTION
+if( $ultnofo_options['nofollow_blogroll'] ) add_filter( 'get_bookmarks', 'ultnofo_blogroll_nofollow_all', 99999);
+
+
+
 
 /**********************************************
 * ADD LINK DIALOGUE NOFOLLOW CHECKBOX SECTION *

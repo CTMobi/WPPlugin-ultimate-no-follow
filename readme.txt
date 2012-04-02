@@ -5,7 +5,7 @@ Donate link: http://wikiduh.com/donate
 Tags: nofollow,link,meta,rel,rel nofollow,seo,link meta,nofollow links,shortcode
 Requires at least: 2.8
 Tested up to: 3.3.1
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 
 A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
 
@@ -18,7 +18,8 @@ The plugin's main features are:
 
 *   a nofollow checkbox to the `insert link` dialogue box, 
 *   several nofollow `shortcodes` *(added in v0.1.0)*, 
-*   a nofollow option for individual `blogroll links`, 
+*   a nofollow option for individual `blogroll links` *(added in v0.1.3)*,
+*   or nofollow all `blogroll links` *(added in v0.1.3)*,
 *   add or remove the nofollow tag from all links in `comments` *(added in v0.1.2)*,
 *   plugin settings page *(added in v0.1.1)*.
 
@@ -39,6 +40,11 @@ See the manpages.
 1. Settings page on the Dashboard.
 
 == Changelog ==
+
+= 0.1.3 =
+* Stable beta version.
+* Nofollow checkbox added to the add/edit blogroll links dialogue.
+* Adds option to nofollow all blogroll links.
 
 = 0.1.2 =
 * Stable beta version.
