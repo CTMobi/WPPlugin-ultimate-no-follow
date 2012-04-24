@@ -4,15 +4,13 @@ Contributors: bitacre
 Donate link: http://wikiduh.com/donate
 Tags: nofollow,link,meta,rel,rel nofollow,seo,link meta,nofollow links,shortcode
 Requires at least: 2.8
-Tested up to: 3.3.1
+Tested up to: 3.3.2
 Stable tag: 0.1.3
 
 A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
 
 == Description ==
 This plugin contains several tools in one to significantly increase your control of the nofollow rel tag on every link on your blog, on both an individual and type basis. It is designed to give you fine-grained control of linking for SEO purposes.
-
-**Notice**: This plugin is still in beta. While it is stable, not all functions listed are included yet.
 
 The plugin's main features are: 
 
