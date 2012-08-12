@@ -14,7 +14,6 @@ This plugin contains several tools in one to significantly increase your control
 
 The plugin's main features are: 
 
-*   a nofollow checkbox to the `insert link` dialogue box, 
 *   several nofollow `shortcodes` *(added in v0.1.0)*, 
 *   a nofollow option for individual `blogroll links` *(added in v0.1.3)*,
 *   or nofollow all `blogroll links` *(added in v0.1.3)*,
