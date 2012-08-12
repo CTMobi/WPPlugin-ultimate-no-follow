@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Ultimate Nofollow
-Plugin URI: http://wikiduh.com/plugins/nofollow
+Plugin URI: http://bitacre.com/plugins/nofollow
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
 Version: 0.1.3
 Author: bitacre
-Author URI: http://wikiduh.com
+Author URI: http://bitacre.com.com
 License: GPLv2 
-	Copyright 2012 bitacre (plugins@wikiduh.com)
+	Copyright 2012 Shinra Web Holdings (shinraholdings.com)
 
 This plugin contains several tools in one to significantly increase your control of the nofollow rel tag on every link on your blog, on both an individual and type basis. It is designed to give you fine-grained control of linking for SEO purposes.
 
