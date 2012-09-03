@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Ultimate Nofollow
-Plugin URI: http://bitacre.com/plugins/nofollow
+Plugin URI: http://shinraholdings.com/plugins/nofollow
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
 Version: 0.1.3
 Author: bitacre
-Author URI: http://bitacre.com.com
+Author URI: http://shinraholdings.com.com
 License: GPLv2 
 	Copyright 2012 Shinra Web Holdings (shinraholdings.com)
 
@@ -89,7 +89,7 @@ function set_plugin_meta_ultnofo( $links, $file ) {
     if ( $file == $plugin ) { // if called for THIS plugin then:
 		$newlinks = array( 
 			'<a href="options-general.php?page=ultimate-nofollow">Settings</a>',
-			'<a href="http://wikiduh.com/plugins/nofollow/help">Help Page</a>' 
+			'<a href="http://shinraholdings.com/plugins/nofollow/help">Help Page</a>' 
 		); // array of links to add
 		return array_merge( $links, $newlinks ); // merge new links into existing $links
 	}
