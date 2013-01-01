@@ -3,7 +3,7 @@
 Plugin Name: Ultimate Nofollow
 Plugin URI: http://shinraholdings.com/plugins/nofollow
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
-Version: 0.1.4
+Version: 1.4.1
 Author: bitacre
 Author URI: http://shinraholdings.com.com
 License: GPLv2 
