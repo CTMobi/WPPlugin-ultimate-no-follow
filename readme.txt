@@ -4,7 +4,7 @@ Contributors: bitacre
 Donate link: http://shinraholdings.com/donate
 Tags: nofollow,link,meta,rel,rel nofollow,seo,link meta,nofollow links,shortcode
 Requires at least: 2.8
-Tested up to: 3.4.2
+Tested up to: 3.5
 Stable tag: 0.1.3.1
 
 A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
