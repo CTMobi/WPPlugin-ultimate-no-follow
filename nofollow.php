@@ -3,7 +3,7 @@
 Plugin Name: Ultimate Nofollow
 Plugin URI: http://shinraholdings.com/plugins/nofollow
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
-Version: 0.1.3.1
+Version: 0.1.4
 Author: bitacre
 Author URI: http://shinraholdings.com.com
 License: GPLv2 
@@ -235,6 +235,23 @@ if( $ultnofo_options['nofollow_blogroll'] ) add_filter( 'get_bookmarks', 'ultnof
 /**********************************************
 * ADD LINK DIALOGUE NOFOLLOW CHECKBOX SECTION *
 ***********************************************/
+function nofollow_redo_wplink() {
+	wp_deregister_script( 'wplink' );
+	
+	$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+	
+	wp_register_script( 'wplink', plugins_url( 'wplink' . $suffix . '.js', __FILE__), array( 'jquery', 'wpdialogs' ), false, 1 );
+	
+	wp_localize_script( 'wplink', 'wpLinkL10n', array(
+		'title' => __('Insert/edit link'),
+		'update' => __('Update'),
+		'save' => __('Add Link'),
+		'noTitle' => __('(no title)'),
+		'noMatchesFound' => __('No matches found.')
+	) );
+}
+add_action( 'admin_enqueue_scripts', 'nofollow_redo_wplink', 999 );
+
 
 /************************************
 * NOFOLLOW ON COMMENT LINKS SECTION *
@@ -253,4 +270,7 @@ function ultnofo_comment_links( $comment ) {
 /* add hooks/filters */
 // add/remove nofollow from comment links
 add_filter('comment_text', 'ultnofo_comment_links', 10);
+
+global $dddd;
+var_dump( $dddd );
 ?>
