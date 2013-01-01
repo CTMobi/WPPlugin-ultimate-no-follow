@@ -5,7 +5,7 @@ Donate link: http://shinraholdings.com/donate
 Tags: nofollow,link,links,meta,insert,rel nofollow,seo,checkbox,popup,shortcode,blogroll
 Requires at least: 2.8
 Tested up to: 3.5
-Stable tag: 1.4
+Stable tag: 1.4.1
 
 Adds a checkbox in the insert link popup box for including rel="nofollow" in links as you create them; as well as other tools that provides complete control over the rel="nofollow" tag on your blogroll links and comments.
 
@@ -45,6 +45,9 @@ You can also include the optional <a> attributes `title` and `target`. A full ex
 3. Nofollow checkbox on the add/edit blogroll link page.
 
 == Changelog ==
+= 1.4.1 =
+* Removed forgotten var_dump() left from debugging process
+
 = 1.4 =
 * Official release
 * Added nofollow checkbox to individual post links
@@ -71,8 +74,12 @@ You can also include the optional <a> attributes `title` and `target`. A full ex
 * Stable, but not all functions active yet. 
 
 == Upgrade Notice ==
+= 1.4.1 =
+Strongly recommended upgrade, version 1.4 is dumping a NULL variable onto public facing pages.
+
 = 1.4 =
 Strongly recommended upgrade, significant improvement in usefulness.
+
 = 0.1.3.1 =
 Updated documentation.
 

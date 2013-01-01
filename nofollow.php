@@ -270,7 +270,4 @@ function ultnofo_comment_links( $comment ) {
 /* add hooks/filters */
 // add/remove nofollow from comment links
 add_filter('comment_text', 'ultnofo_comment_links', 10);
-
-global $dddd;
-var_dump( $dddd );
 ?>
