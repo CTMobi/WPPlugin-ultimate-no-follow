@@ -4,8 +4,8 @@ Contributors: bitacre
 Donate link: http://shinraholdings.com/donate
 Tags: nofollow,link,links,meta,insert,rel nofollow,seo,checkbox,popup,shortcode,blogroll
 Requires at least: 2.8
-Tested up to: 3.9
-Stable tag: 1.4.2
+Tested up to: 4.2
+Stable tag: 1.4.3
 
 Adds a checkbox in the insert link popup box for including rel="nofollow" in links as you create them; as well as other tools that provides complete control over the rel="nofollow" tag on your blogroll links and comments.
 
@@ -45,6 +45,10 @@ You can also include the optional <a> attributes `title` and `target`. A full ex
 3. Nofollow checkbox on the add/edit blogroll link page.
 
 == Changelog ==
+= 1.4.3 =
+* Fixes compatibility issue with Wordpress 4.2
+* Thanks to [Zoe Corkhill](https://profiles.wordpress.org/zoecorkhill/) for the fix
+
 = 1.4.2 =
 * Fixes compatability issue with WordPress 3.9
 
@@ -77,6 +81,9 @@ You can also include the optional <a> attributes `title` and `target`. A full ex
 * Stable, but not all functions active yet. 
 
 == Upgrade Notice ==
+= 1.4.3 =
+Required update if using WordPress 4.2 or above.
+
 = 1.4.2 =
 Required update if using WordPress 3.9 or above.
 
