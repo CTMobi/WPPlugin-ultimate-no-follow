@@ -1,13 +1,14 @@
 <?php
+
 /*
 Plugin Name: Ultimate Nofollow
-Plugin URI: http://shinraholdings.com/plugins/nofollow
+Plugin URI: http://5fifty.co.uk
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
-Version: 1.4.3
-Author: bitacre
-Author URI: http://shinraholdings.com.com
-License: GPLv2 
-	Copyright 2012 Shinra Web Holdings (shinraholdings.com)
+Version: 1.4.8
+Author: 5fifty
+Author URI: http://5fifty.co.uk
+License: GPLv2
+	Copyright 2017 5fifty (5fifty.co.uk)
 
 This plugin contains several tools in one to significantly increase your control of the nofollow rel tag on every link on your blog, on both an individual and type basis. It is designed to give you fine-grained control of linking for SEO purposes.
 
@@ -36,6 +37,7 @@ function ultnofo_options_add_page() {
 accepts an array, returns a sanitized array. */
 function ultnofo_options_validate( $input ) { 
 	$input[ 'nofollow_comments' ] = ( $input[ 'nofollow_comments' ] == 1 ? 1 : 0 ); // (checkbox) if 1 then 1, else 0
+	$input[ 'nofollow_blogroll' ] = ( $input[ 'nofollow_blogroll' ] == 1 ? 1 : 0 ); // (checkbox) if 1 then 1, else 0
 	//	$input[ 'test_text_1' ] =  wp_filter_nohtml_kses( $input[ 'test_text_1' ] ); // (textbox) safe text, no html
 	return $input;
 }
@@ -89,7 +91,7 @@ function set_plugin_meta_ultnofo( $links, $file ) {
     if ( $file == $plugin ) { // if called for THIS plugin then:
 		$newlinks = array( 
 			'<a href="options-general.php?page=ultimate-nofollow">Settings</a>',
-			'<a href="http://shinraholdings.com/plugins/nofollow/help">Help Page</a>' 
+			'<a href="http://5fifty.co.uk">Help Page</a>' 
 		); // array of links to add
 		return array_merge( $links, $newlinks ); // merge new links into existing $links
 	}
@@ -188,7 +190,7 @@ function ultnofo_blogroll_add_meta_box() {
 }
 
 function ultnofo_blogroll_inner_meta_box ( $post ) {
-	$bookmark = get_bookmark( $post->ID, 'ARRAY_A' );
+	$bookmark = get_bookmark( $post->link_id, 'ARRAY_A' );
 	if( strpos( $bookmark['link_rel'], 'nofollow' ) !== FALSE ) $checked = ' checked="checked"';
 	else $checked = '';
 
