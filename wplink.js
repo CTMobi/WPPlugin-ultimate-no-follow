@@ -269,7 +269,7 @@ var wpLink;
 			inputs.wrap.hide();
 
 			correctedURL = false;
-
+			$( '.mce-inline-toolbar-grp' ).hide();
 			$( document ).trigger( 'wplink-close', inputs.wrap );
 		},
 
