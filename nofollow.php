@@ -1,19 +1,15 @@
 <?php
 
 /*
-Plugin Name: Ultimate Nofollow
-Plugin URI: http://5fifty.co.uk
+Plugin Name: Ultimate Nofollow CTMobi
+Plugin URI: https://www.ctmobi.it
 Description: A suite of tools that gives you complete control over the rel=nofollow tag on an individual link basis.
 Version: 1.4.8
-Author: 5fifty
-Author URI: http://5fifty.co.uk
+Author: CTMobi
+Author URI: https://www.ctmobi.it
 License: GPLv2
-	Copyright 2017 5fifty (5fifty.co.uk)
-
 This plugin contains several tools in one to significantly increase your control of the nofollow rel tag on every link on your blog, on both an individual and type basis. It is designed to give you fine-grained control of linking for SEO purposes.
-
 Notice: This plugin changes WordPress functionality in a way that is not modular and may break with WP-Core updates.
-
 */
 
 /***********************

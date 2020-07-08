@@ -231,8 +231,11 @@ var wpLink;
 				inputs.url.val( editor.dom.getAttrib( linkNode, 'href' ) );
 				inputs.openInNewTab.prop( 'checked', '_blank' === editor.dom.getAttrib( linkNode, 'target' ) );
 								// Set rel="nofollow" (mod)
-				if ( "nofollow" == ed.dom.getAttrib(e, 'rel' ) )
+				if ( "nofollow" == linkNode.getAttribute('rel') ) {
 					inputs.relNofollow.prop('checked', true);
+				} else {
+					inputs.relNofollow.prop('checked', false);
+				}
 				inputs.submit.val( wpLinkL10n.update );
 			} else {
 				text = editor.selection.getContent({ format: 'text' });
@@ -266,7 +269,7 @@ var wpLink;
 			inputs.wrap.hide();
 
 			correctedURL = false;
-
+			$( '.mce-inline-toolbar-grp' ).hide();
 			$( document ).trigger( 'wplink-close', inputs.wrap );
 		},
 
