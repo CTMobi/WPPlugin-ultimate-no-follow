@@ -319,7 +319,7 @@
 			return {
 				href: $.trim( inputs.url.val() ),
 				target: inputs.openInNewTab.prop( 'checked' ) ? '_blank' : null,
-                rel: inputs.relNofollow.prop( 'checked' ) ? 'nofollow' : '' // (mod)
+                rel: inputs.relNofollow.prop( 'checked' ) ? 'nofollow' : null // (mod)
 			};
 		},
 
