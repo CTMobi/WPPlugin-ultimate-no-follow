@@ -245,7 +245,9 @@ function nofollow_redo_wplink() {
 		'update' => __('Update'),
 		'save' => __('Add Link'),
 		'noTitle' => __('(no title)'),
-		'noMatchesFound' => __('No matches found.')
+		'noMatchesFound' => __('No matches found.'),
+		'linkSelected'   => __( 'Link selected.' ),
+		'linkInserted'   => __( 'Link inserted.' ),
 	) );
 }
 add_action( 'admin_enqueue_scripts', 'nofollow_redo_wplink', 999 );
